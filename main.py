@@ -31,10 +31,10 @@ class Category:
         self.description = description
         self.products = products if products is not None else []
         Category.category_count = Category.category_count + 1
-        # Category.product_count = Category.product_count + len(self.products)
+        Category.product_count = Category.product_count + len(self.products)
 
-    def product_count(self):
-        return len(self.products)
+    def product_count(self, product_count):
+        return self.product_count
 
     def add_product(self, product: Product):
         """Метод для добавления продукта в категорию."""
