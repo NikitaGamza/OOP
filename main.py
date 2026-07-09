@@ -65,7 +65,7 @@ if __name__ == "__main__":
         [product1, product2, product3],
     )
 
-    # print(category1.name == "Смартфоны")
+    print(category1.name == "Смартфоны")
     print(category1.description)
     print(len(category1.products))
     print(category1.category_count)
