@@ -31,6 +31,7 @@ class Category:
         self.description = description
         self.products = products if products is not None else []
         Category.category_count += 1
+        Category.product_count += len(self.products)
 
     def product_count(self):
         return len(self.products)
