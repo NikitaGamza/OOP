@@ -23,6 +23,8 @@ class Category:
     description: str
     products: List[Product]
     category_count: int = 0
+    product_count = 0
+
 
     def __init__(
         self, name: str, description: str, products: Optional[List[Product]] = None
@@ -33,16 +35,21 @@ class Category:
         Category.category_count = Category.category_count + 1
         Category.product_count = Category.product_count + len(self.products)
 
-    def product_count(self, product_count):
-        return self.product_count
-
     def add_product(self, product: Product):
         """Метод для добавления продукта в категорию."""
         product.category = self  # Назначаем категорию продукту
         self.products.append(product)
-        Category.product_count += 1
 
 if __name__ == "__main__":
+    def phone_list():
+        phone1 = Product("Samsung", "256GB Blue", 200, 10)
+        phone2 = Product("LG", "256GB Black", 150, 8)
+        phone3 = Product("Xiaomi", "256GB Green", 250, 12)
+        return [phone1, phone2, phone3]
+
+    cat1 = Category("Телефоны", "Смартфоны и мобильные устройства", phone_list())
+
+    print(cat1.product_count)
     product1 = Product(
         "Samsung Galaxy S23 Ultra", "256GB, Серый цвет, 200MP камера", 180000.0, 5
     )
