@@ -12,7 +12,7 @@ class Product:
     def __init__(self, name: str, description: str, price: float, quantity: int):
         self.name = name
         self.description = description
-        self.price = price
+        self.__price = price
         self.quantity = quantity
 
     @classmethod
@@ -26,6 +26,32 @@ class Product:
                     parameters["price"] = existing_product.price
         else:
             return cls(parameters["name"], parameters["description"], parameters["price"], parameters["quantity"])
+
+    @property
+    def price(self):
+        """Геттер цены"""
+        return self.__price
+
+    @price.setter
+    def price(self, new_price: float):
+        """Сеттер новой цены"""
+        if new_price > 0:
+            if self.__price > new_price:
+                select = ""
+                print("Вы уверены, что хотите понизить цену? y - да, n - нет")
+                while select != "Y" and select != "N":
+                    select = input().upper()
+                    if select != "Y" and select != "N":
+                        print("Некорректный ввод")
+                        print("Вы уверены, что хотите понизить цену? y - да, n - нет")
+                if select == "Y":
+                    self.__price = new_price
+                elif select == "N":
+                    self.__price = self.__price
+            else:
+                self.__price = new_price
+        else:
+            print("Цена не должна быть нулевая или отрицательная")
 
 
 class Category:
@@ -64,6 +90,8 @@ if __name__ == "__main__":
     prod1 = Product("Samsung", "256GB Blue", 200, 10)
     new_prod = prod1.new_product({"name": "LG", "description": "256GB Blue", "price": 300, "quantity": 5})
     print(new_prod.name)
+    prod1.price = 450
+    print(prod1.price)
     # def phone_list():
     #     phone1 = Product("Samsung", "256GB Blue", 200, 10)
     #     phone2 = Product("LG", "256GB Black", 150, 8)

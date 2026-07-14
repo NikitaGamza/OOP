@@ -18,6 +18,8 @@ def test_product_phone__init(product_phone):
     assert product_phone.quantity == 10
     new_prod = product_phone.new_product({"name": "LG", "description": "256GB Blue", "price": 300, "quantity": 5})
     assert new_prod.name == "LG"
+    new_prod.price = 450
+    assert new_prod.price == 450
 
 def get_phone_list():
     phone1 = Product("Samsung", "256GB Blue", 200, 10)
