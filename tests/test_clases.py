@@ -1,3 +1,7 @@
+from os import name
+
+from jinja2.lexer import describe_token
+
 from main import Product, Category
 import pytest
 
@@ -12,6 +16,8 @@ def test_product_phone__init(product_phone):
     assert product_phone.description == "256GB Blue"
     assert product_phone.price == 200
     assert product_phone.quantity == 10
+    new_prod = product_phone.new_product({"name": "LG", "description": "256GB Blue", "price": 300, "quantity": 5})
+    assert new_prod.name == "LG"
 
 def get_phone_list():
     phone1 = Product("Samsung", "256GB Blue", 200, 10)
