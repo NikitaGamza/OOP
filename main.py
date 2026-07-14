@@ -21,7 +21,7 @@ class Category:
 
     name: str
     description: str
-    products: List[Product]
+    __products: List[Product]
     category_count: int = 0
     product_count = 0
 
@@ -31,14 +31,22 @@ class Category:
     ) -> None:
         self.name = name
         self.description = description
-        self.products = products if products is not None else []
+        self.__products = products if products is not None else []
         Category.category_count = Category.category_count + 1
-        Category.product_count = Category.product_count + len(self.products)
+        Category.product_count = Category.product_count + len(self.__products)
 
     def add_product(self, product: Product):
         """Метод для добавления продукта в категорию."""
         product.category = self  # Назначаем категорию продукту
-        self.products.append(product)
+        self.__products.append(product)
+
+    @property
+    def get_products(self):
+        """Геттер, выводящий список товаров в строковом виде"""
+        result = ""
+        for product in self.__products:
+            result += f"{product.name}, {product.price} руб. Остаток: {product.quantity} шт.\n"
+        return result
 
 if __name__ == "__main__":
     def phone_list():
