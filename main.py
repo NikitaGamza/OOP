@@ -1,4 +1,4 @@
-from typing import List, Optional, Any
+from typing import Any, List, Optional
 
 
 class Product:
@@ -25,7 +25,12 @@ class Product:
                 if existing_product.price > parameters["price"]:
                     parameters["price"] = existing_product.price
         else:
-            return cls(parameters["name"], parameters["description"], parameters["price"], parameters["quantity"])
+            return cls(
+                parameters["name"],
+                parameters["description"],
+                parameters["price"],
+                parameters["quantity"],
+            )
 
     @property
     def price(self):
@@ -63,7 +68,6 @@ class Category:
     category_count: int = 0
     product_count = 0
 
-
     def __init__(
         self, name: str, description: str, products: Optional[List[Product]] = None
     ) -> None:
@@ -86,9 +90,12 @@ class Category:
             result += f"{product.name}, {product.price} руб. Остаток: {product.quantity} шт.\n"
         return result
 
+
 if __name__ == "__main__":
     prod1 = Product("Samsung", "256GB Blue", 200, 10)
-    new_prod = prod1.new_product({"name": "LG", "description": "256GB Blue", "price": 300, "quantity": 5})
+    new_prod = prod1.new_product(
+        {"name": "LG", "description": "256GB Blue", "price": 300, "quantity": 5}
+    )
     print(new_prod.name)
     prod1.price = 450
     print(prod1.price)
@@ -138,9 +145,6 @@ if __name__ == "__main__":
     # print(cat1.product_count)
     #
     # product4 = Product("55\" QLED 4K", "Фоновая подсветка", 123000.0, 7)
-    # category2 = Category("Телевизоры",
-    #                      "Современный телевизор, который позволяет наслаждаться просмотром, станет вашим другом и помощником",
-    #                      [product4])
     #
     # print(category2.name)
     # print(category2.description)
