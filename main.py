@@ -84,7 +84,7 @@ class Category:
         self.__products.append(product)
 
     @property
-    def get_products(self):
+    def products(self):
         """Геттер, выводящий список товаров в строковом виде"""
         result = ""
         for product in self.__products:

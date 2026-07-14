@@ -43,6 +43,6 @@ def category_phone():
 def test_category_phone__init(category_phone):
     assert category_phone.name == "Телефоны"
     assert category_phone.description == "Смартфоны и мобильные устройства"
-    assert category_phone.get_products == get_phone_list()
+    assert category_phone.products == get_phone_list()
     assert category_phone.category_count == 1
     assert category_phone.product_count == 3
