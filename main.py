@@ -6,7 +6,7 @@ class Product:
 
     name: str
     description: str
-    price: float
+    __price: float
     quantity: int
 
     def __init__(self, name: str, description: str, price: float, quantity: int):
@@ -79,7 +79,7 @@ class Category:
 
     def add_product(self, product: Product):
         """Метод для добавления продукта в категорию."""
-        product.category = self  # Назначаем категорию продукту
+        product.name = self.name  # Назначаем категорию продукту
         self.product_count = self.product_count + 1
         self.__products.append(product)
 
