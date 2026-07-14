@@ -1,4 +1,4 @@
-from typing import List, Optional
+from typing import List, Optional, Any
 
 
 class Product:
@@ -14,6 +14,18 @@ class Product:
         self.description = description
         self.price = price
         self.quantity = quantity
+
+    @classmethod
+    def new_product(cls, parameters: dict, product_list: Any | None = None):
+        if not product_list:
+            product_list = []
+        for existing_product in product_list:
+            if existing_product.name == parameters["name"]:
+                parameters["quantity"] += existing_product.quantity
+                if existing_product.price > parameters["price"]:
+                    parameters["price"] = existing_product.price
+        else:
+            return cls(parameters["name"], parameters["description"], parameters["price"], parameters["quantity"])
 
 
 class Category:
