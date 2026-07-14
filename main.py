@@ -80,6 +80,7 @@ class Category:
     def add_product(self, product: Product):
         """Метод для добавления продукта в категорию."""
         product.category = self  # Назначаем категорию продукту
+        self.product_count = self.product_count + 1
         self.__products.append(product)
 
     @property
