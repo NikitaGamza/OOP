@@ -34,7 +34,7 @@ def phone_list():
 
 @pytest.fixture()
 def category_phone():
-    return Category("Телефоны", "Смартфоны и мобильные устройства", phone_list())
+    return Category("Телефоны", "Smartphones", "Смартфоны и мобильные устройства", phone_list())
 
 def test_category_phone__init(category_phone):
     assert category_phone.name == "Телефоны"
