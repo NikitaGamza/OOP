@@ -63,15 +63,17 @@ class Category:
     """Класс категорий продукта"""
 
     name: str
+    category: str
     description: str
     __products: List[Product]
     category_count: int = 0
     product_count = 0
 
     def __init__(
-        self, name: str, description: str, products: Optional[List[Product]] = None
+        self, name: str, category: str, description: str, products: Optional[List[Product]] = None
     ) -> None:
         self.name = name
+        self.category = category
         self.description = description
         self.__products = products if products is not None else []
         Category.category_count = Category.category_count + 1
@@ -79,7 +81,7 @@ class Category:
 
     def add_product(self, product: Product):
         """Метод для добавления продукта в категорию."""
-        product.name = self.name  # Назначаем категорию продукту
+        product.category = self.category  # Назначаем категорию продукту
         self.product_count = self.product_count + 1
         self.__products.append(product)
 
@@ -100,15 +102,15 @@ if __name__ == "__main__":
     print(new_prod.name)
     prod1.price = 450
     print(prod1.price)
-    # def phone_list():
-    #     phone1 = Product("Samsung", "256GB Blue", 200, 10)
-    #     phone2 = Product("LG", "256GB Black", 150, 8)
-    #     phone3 = Product("Xiaomi", "256GB Green", 250, 12)
-    #     return [phone1, phone2, phone3]
+    def phone_list():
+        phone1 = Product("Samsung", "256GB Blue", 200, 10)
+        phone2 = Product("LG", "256GB Black", 150, 8)
+        phone3 = Product("Xiaomi", "256GB Green", 250, 12)
+        return [phone1, phone2, phone3]
     #
-    # cat1 = Category("Телефоны", "Смартфоны и мобильные устройства", phone_list())
-    #
-    # print(cat1.product_count)
+    cat1 = Category("Телефоны", "Смартфоны и мобильные устройства", "some description", phone_list())
+    cat1.add_product(prod1)
+    print(cat1.product_count)
     # product1 = Product(
     #     "Samsung Galaxy S23 Ultra", "256GB, Серый цвет, 200MP камера", 180000.0, 5
     # )

@@ -1,7 +1,3 @@
-from os import name
-
-from jinja2.lexer import describe_token
-
 from main import Product, Category
 import pytest
 
