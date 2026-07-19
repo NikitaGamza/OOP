@@ -70,7 +70,11 @@ class Category:
     product_count = 0
 
     def __init__(
-        self, name: str, category: str, description: str, products: Optional[List[Product]] = None
+        self,
+        name: str,
+        category: str,
+        description: str,
+        products: Optional[List[Product]] = None,
     ) -> None:
         self.name = name
         self.category = category
@@ -81,8 +85,7 @@ class Category:
 
     def add_product(self, product: Product):
         """Метод для добавления продукта в категорию."""
-        product.category = self.category  # Назначаем категорию продукту
-        Category.product_count  = Category.product_count + 1
+        Category.product_count = Category.product_count + 1
         self.__products.append(product)
 
     @property
@@ -102,13 +105,17 @@ if __name__ == "__main__":
     print(new_prod.name)
     prod1.price = 450
     print(prod1.price)
+
     def phone_list():
         phone1 = Product("Samsung", "256GB Blue", 200, 10)
         phone2 = Product("LG", "256GB Black", 150, 8)
         phone3 = Product("Xiaomi", "256GB Green", 250, 12)
         return [phone1, phone2, phone3]
+
     #
-    cat1 = Category("Телефоны", "Смартфоны и мобильные устройства", "some description", phone_list())
+    cat1 = Category(
+        "Телефоны", "Смартфоны и мобильные устройства", "some description", phone_list()
+    )
     cat1.add_product(prod1)
     print(cat1.product_count)
     # product1 = Product(
