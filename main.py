@@ -15,6 +15,10 @@ class Product:
         self.__price = price
         self.quantity = quantity
 
+    def __str__(self) -> str:
+        """Возврат форматированной строки характеристик товара"""
+        return f'{self.name}, {self.price} руб. Остаток: {self.quantity} шт.'
+
     @classmethod
     def new_product(cls, parameters: dict, product_list: Any | None = None):
         if not product_list:
