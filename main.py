@@ -87,6 +87,13 @@ class Category:
         Category.category_count = Category.category_count + 1
         Category.product_count = Category.product_count + len(self.__products)
 
+    def __str__(self) -> str:
+        # Подсчет общего количества продуктов в категории продукта
+        full_quantity_products = 0
+        for product in self.__products:
+            full_quantity_products += product.quantity
+        return f"{self.name}, количество продуктов: {full_quantity_products} шт."
+
     def add_product(self, product: Product):
         """Метод для добавления продукта в категорию."""
         Category.product_count = Category.product_count + 1
