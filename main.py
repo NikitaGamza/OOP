@@ -17,7 +17,7 @@ class Product:
 
     def __str__(self) -> str:
         """Возврат форматированной строки характеристик товара"""
-        return f'{self.name}, {self.price} руб. Остаток: {self.quantity} шт.'
+        return f"{self.name}, {self.price} руб. Остаток: {self.quantity} шт."
 
     def __add__(self, other) -> float:
         return self.__price * self.quantity + other.__price * other.quantity
