@@ -116,7 +116,8 @@ if __name__ == "__main__":
     new_prod = prod1.new_product(
         {"name": "LG", "description": "256GB Blue", "price": 300, "quantity": 5}
     )
-    print(new_prod.name)
+    print(new_prod)
+    print(prod1 + new_prod)
     prod1.price = 450
     print(prod1.price)
 

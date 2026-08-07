@@ -16,6 +16,9 @@ def test_product_phone__init(product_phone):
     assert new_prod.name == "LG"
     new_prod.price = 450
     assert new_prod.price == 450
+    assert str(new_prod) == 'LG, 450 руб. Остаток: 5 шт.'
+    res = product_phone + new_prod
+    assert res == 4250
 
 def get_phone_list():
     phone1 = Product("Samsung", "256GB Blue", 200, 10)
@@ -42,3 +45,4 @@ def test_category_phone__init(category_phone):
     assert category_phone.products == get_phone_list()
     assert category_phone.category_count == 1
     assert category_phone.product_count == 3
+    assert str(category_phone) == 'Телефоны, количество продуктов: 30 шт.'
