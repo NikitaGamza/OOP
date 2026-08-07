@@ -19,6 +19,9 @@ class Product:
         """Возврат форматированной строки характеристик товара"""
         return f'{self.name}, {self.price} руб. Остаток: {self.quantity} шт.'
 
+    def __add__(self, other) -> float:
+        return self.__price * self.quantity + other.__price * other.quantity
+
     @classmethod
     def new_product(cls, parameters: dict, product_list: Any | None = None):
         if not product_list:
