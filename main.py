@@ -89,15 +89,16 @@ class Smartphone(Product):
 
 class LawnGrass(Product):
     """Класс травы"""
+
     def __init__(
-            self,
-            name: str,
-            description: str,
-            price: float,
-            quantity: int,
-            country: str,
-            germination_period: int,
-            color: int
+        self,
+        name: str,
+        description: str,
+        price: float,
+        quantity: int,
+        country: str,
+        germination_period: int,
+        color: int,
     ):
         super().__init__(name, description, price, quantity)
         self.country = country
