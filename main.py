@@ -87,6 +87,24 @@ class Smartphone(Product):
         self.color = color
 
 
+class LawnGrass(Product):
+    """Класс травы"""
+    def __init__(
+            self,
+            name: str,
+            description: str,
+            price: float,
+            quantity: int,
+            country: str,
+            germination_period: int,
+            color: int
+    ):
+        super().__init__(name, description, price, quantity)
+        self.country = country
+        self.germination_period = germination_period
+        self.color = color
+
+
 class Category:
     """Класс категорий продукта"""
 
