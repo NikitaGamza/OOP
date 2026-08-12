@@ -86,6 +86,11 @@ class Smartphone(Product):
         self.memory = memory
         self.color = color
 
+    def __add__(self, other) -> float | TypeError:
+        if not isinstance(other, Smartphone):
+            return TypeError('Общую сумму можно посчитать только с одних и тех же товаров')
+        return self.__price * self.quantity + other.__price * other.quantity
+
 
 class LawnGrass(Product):
     """Класс травы"""
@@ -105,6 +110,10 @@ class LawnGrass(Product):
         self.germination_period = germination_period
         self.color = color
 
+    def __add__(self, other) -> float | TypeError:
+        if not isinstance(other, LawnGrass):
+            return TypeError('Общую сумму можно посчитать только с одних и тех же товаров')
+        return self.__price * self.quantity + other.__price * other.quantity
 
 class Category:
     """Класс категорий продукта"""
