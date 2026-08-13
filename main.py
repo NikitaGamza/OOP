@@ -138,8 +138,27 @@ class LawnGrass(Product):
             return TypeError(
                 "Общую сумму можно посчитать только с одних и тех же товаров"
             )
-        return self.__price * self.quantity + other.__price * other.quantity
+        return self.price * self.quantity + other.price * other.quantity
 
+    @classmethod
+    def new_product(cls, parameters: dict, product_list: Any | None = None):
+        if not product_list:
+            product_list = []
+        for existing_product in product_list:
+            if existing_product.name == parameters["name"]:
+                parameters["quantity"] += existing_product.quantity
+                if existing_product.price > parameters["price"]:
+                    parameters["price"] = existing_product.price
+        else:
+            return cls(
+                parameters["name"],
+                parameters["description"],
+                parameters["price"],
+                parameters["quantity"],
+                parameters["country"],
+                parameters["germination_period"],
+                parameters["color"],
+            )
 
 class Category:
     """Класс категорий продукта"""

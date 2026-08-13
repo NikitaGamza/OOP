@@ -52,6 +52,33 @@ def test_product_smartphone__init(product_smartphone):
     assert wrong_res == TypeError('Общую сумму можно посчитать только с одних и тех же товаров')
 
 
+@pytest.fixture()
+def product_grass():
+    return LawnGrass("Samsung", "256GB Blue", 200, 10, "Russia", 14, "Green")
+
+def test_product_grass__init(product_grass):
+    new_prod = product_grass.new_product(
+        {
+            "name": "LG",
+            "description": "256GB Blue",
+            "price": 300,
+            "quantity": 5,
+            "country": "USA",
+            "germination_period": 10,
+            "color": "brown",
+        }
+    )
+    assert new_prod.name == "LG"
+    new_prod.price = 450
+    assert new_prod.price == 450
+    assert str(new_prod) == "LG, 450 руб. Остаток: 5 шт."
+    res = product_grass + new_prod
+    assert res == 4250
+    other_prod = Smartphone("Samsung", "256GB Blue", 200, 10, 1600, "Galaxy A16", 265, "Blue")
+    wrong_res = product_grass + other_prod
+    assert wrong_res == TypeError('Общую сумму можно посчитать только с одних и тех же товаров')
+
+
 def get_phone_list():
     phone1 = Product("Samsung", "256GB Blue", 200, 10)
     phone2 = Product("LG", "256GB Black", 150, 8)
