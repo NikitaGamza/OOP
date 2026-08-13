@@ -1,6 +1,6 @@
 import pytest
 
-from main import Category, LawnGrass, Product, Smartphone
+from main import Category, LawnGrass, Product, Smartphone, WrongClass
 
 
 @pytest.fixture()
@@ -112,3 +112,9 @@ def test_category_phone__init(category_phone):
     assert category_phone.category_count == 1
     assert category_phone.product_count == 3
     assert str(category_phone) == "Телефоны, количество продуктов: 30 шт."
+    wrong_prod = WrongClass(
+        "Samsung",
+        "256GB Blue",
+    200,
+        10, )
+    category_phone.add_product(wrong_prod)
