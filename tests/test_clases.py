@@ -1,5 +1,6 @@
-from main import Product, Category
 import pytest
+
+from main import Category, LawnGrass, Product, Smartphone
 
 
 @pytest.fixture()
@@ -12,13 +13,42 @@ def test_product_phone__init(product_phone):
     assert product_phone.description == "256GB Blue"
     assert product_phone.price == 200
     assert product_phone.quantity == 10
-    new_prod = product_phone.new_product({"name": "LG", "description": "256GB Blue", "price": 300, "quantity": 5})
+    new_prod = product_phone.new_product(
+        {"name": "LG", "description": "256GB Blue", "price": 300, "quantity": 5}
+    )
     assert new_prod.name == "LG"
     new_prod.price = 450
     assert new_prod.price == 450
-    assert str(new_prod) == 'LG, 450 руб. Остаток: 5 шт.'
+    assert str(new_prod) == "LG, 450 руб. Остаток: 5 шт."
     res = product_phone + new_prod
     assert res == 4250
+
+
+@pytest.fixture()
+def product_smartphone():
+    return Smartphone("Samsung", "256GB Blue", 200, 10, 1600, "Galaxy A16", 265, "Blue")
+
+
+def test_product_smartphone__init(product_smartphone):
+    new_prod = product_smartphone.new_product(
+        {
+            "name": "LG",
+            "description": "256GB Blue",
+            "price": 300,
+            "quantity": 5,
+            "efficiency": 1700,
+            "model": "Galaxy A32",
+            "memory": 512,
+            "color": "brown",
+        }
+    )
+    assert new_prod.name == "LG"
+    new_prod.price = 450
+    assert new_prod.price == 450
+    assert str(new_prod) == "LG, 450 руб. Остаток: 5 шт."
+    res = product_smartphone + new_prod
+    assert res == 4250
+
 
 def get_phone_list():
     phone1 = Product("Samsung", "256GB Blue", 200, 10)
@@ -26,8 +56,11 @@ def get_phone_list():
     phone3 = Product("Xiaomi", "256GB Green", 250, 12)
     result = ""
     for product in [phone1, phone2, phone3]:
-        result += f"{product.name}, {product.price} руб. Остаток: {product.quantity} шт.\n"
+        result += (
+            f"{product.name}, {product.price} руб. Остаток: {product.quantity} шт.\n"
+        )
     return result
+
 
 def phone_list():
     phone1 = Product("Samsung", "256GB Blue", 200, 10)
@@ -35,9 +68,13 @@ def phone_list():
     phone3 = Product("Xiaomi", "256GB Green", 250, 12)
     return [phone1, phone2, phone3]
 
+
 @pytest.fixture()
 def category_phone():
-    return Category("Телефоны", "Smartphones", "Смартфоны и мобильные устройства", phone_list())
+    return Category(
+        "Телефоны", "Smartphones", "Смартфоны и мобильные устройства", phone_list()
+    )
+
 
 def test_category_phone__init(category_phone):
     assert category_phone.name == "Телефоны"
@@ -45,4 +82,4 @@ def test_category_phone__init(category_phone):
     assert category_phone.products == get_phone_list()
     assert category_phone.category_count == 1
     assert category_phone.product_count == 3
-    assert str(category_phone) == 'Телефоны, количество продуктов: 30 шт.'
+    assert str(category_phone) == "Телефоны, количество продуктов: 30 шт."

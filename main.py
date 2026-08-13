@@ -91,7 +91,28 @@ class Smartphone(Product):
             return TypeError(
                 "Общую сумму можно посчитать только с одних и тех же товаров"
             )
-        return self.__price * self.quantity + other.__price * other.quantity
+        return self.price * self.quantity + other.price * other.quantity
+
+    @classmethod
+    def new_product(cls, parameters: dict, product_list: Any | None = None):
+        if not product_list:
+            product_list = []
+        for existing_product in product_list:
+            if existing_product.name == parameters["name"]:
+                parameters["quantity"] += existing_product.quantity
+                if existing_product.price > parameters["price"]:
+                    parameters["price"] = existing_product.price
+        else:
+            return cls(
+                parameters["name"],
+                parameters["description"],
+                parameters["price"],
+                parameters["quantity"],
+                parameters["efficiency"],
+                parameters["model"],
+                parameters["memory"],
+                parameters["color"],
+            )
 
 
 class LawnGrass(Product):
@@ -153,7 +174,11 @@ class Category:
 
     def add_product(self, product: Product | LawnGrass | Smartphone) -> None:
         """Метод для добавления продукта в категорию."""
-        if isinstance(product, Product) | isinstance(product, LawnGrass) | isinstance(product, Smartphone):
+        if (
+            isinstance(product, Product)
+            | isinstance(product, LawnGrass)
+            | isinstance(product, Smartphone)
+        ):
             Category.product_count = Category.product_count + 1
             self.__products.append(product)
         else:
@@ -176,20 +201,37 @@ if __name__ == "__main__":
     print(new_prod)
     print(prod1 + new_prod)
     prod1.price = 450
-    print(prod1.price)
 
-    def phone_list():
-        phone1 = Product("Samsung", "256GB Blue", 200, 10)
-        phone2 = Product("LG", "256GB Black", 150, 8)
-        phone3 = Product("Xiaomi", "256GB Green", 250, 12)
-        return [phone1, phone2, phone3]
-
-    #
-    cat1 = Category(
-        "Телефоны", "Смартфоны и мобильные устройства", "some description", phone_list()
+    smart1 = Smartphone(
+        "Samsung", "256GB Blue", 200, 10, 1600, "Galaxy A16", 265, "Blue"
     )
-    cat1.add_product(prod1)
-    print(cat1.product_count)
+    smart2 = smart1.new_product(
+        {
+            "name": "Samsung",
+            "description": "256GB Blue",
+            "price": 200,
+            "quantity": 10,
+            "efficiency": 1600,
+            "model": "Galaxy A16",
+            "memory": 265,
+            "color": "Blue",
+        }
+    )
+    print(smart1 + smart2)
+    # print(prod1.price)
+    #
+    # def phone_list():
+    #     phone1 = Product("Samsung", "256GB Blue", 200, 10)
+    #     phone2 = Product("LG", "256GB Black", 150, 8)
+    #     phone3 = Product("Xiaomi", "256GB Green", 250, 12)
+    #     return [phone1, phone2, phone3]
+    #
+    # #
+    # cat1 = Category(
+    #     "Телефоны", "Смартфоны и мобильные устройства", "some description", phone_list()
+    # )
+    # cat1.add_product(prod1)
+    # print(cat1.product_count)
     # product1 = Product(
     #     "Samsung Galaxy S23 Ultra", "256GB, Серый цвет, 200MP камера", 180000.0, 5
     # )
