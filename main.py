@@ -151,10 +151,13 @@ class Category:
             full_quantity_products += product.quantity
         return f"{self.name}, количество продуктов: {full_quantity_products} шт."
 
-    def add_product(self, product: Product):
+    def add_product(self, product: Product | LawnGrass | Smartphone) -> None:
         """Метод для добавления продукта в категорию."""
-        Category.product_count = Category.product_count + 1
-        self.__products.append(product)
+        if isinstance(product, Product) | isinstance(product, LawnGrass) | isinstance(product, Smartphone):
+            Category.product_count = Category.product_count + 1
+            self.__products.append(product)
+        else:
+            raise TypeError("Добавляется только: Продукт, Газонная Трава, Смартфон")
 
     @property
     def products(self):
