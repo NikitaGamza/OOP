@@ -126,7 +126,7 @@ class LawnGrass(Product):
         quantity: int,
         country: str,
         germination_period: int,
-        color: int,
+        color: str,
     ):
         super().__init__(name, description, price, quantity)
         self.country = country

@@ -23,7 +23,6 @@ def test_product_phone__init(product_phone):
     res = product_phone + new_prod
     assert res == 4250
 
-
 @pytest.fixture()
 def product_smartphone():
     return Smartphone("Samsung", "256GB Blue", 200, 10, 1600, "Galaxy A16", 265, "Blue")
@@ -48,6 +47,9 @@ def test_product_smartphone__init(product_smartphone):
     assert str(new_prod) == "LG, 450 руб. Остаток: 5 шт."
     res = product_smartphone + new_prod
     assert res == 4250
+    other_prod = LawnGrass("Samsung", "256GB Blue", 200, 10, "Russia", 10, "Green")
+    wrong_res = product_smartphone + other_prod
+    assert wrong_res == TypeError('Общую сумму можно посчитать только с одних и тех же товаров')
 
 
 def get_phone_list():
