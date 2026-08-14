@@ -47,9 +47,6 @@ def test_product_smartphone__init(product_smartphone):
     assert str(new_prod) == "LG, 450 руб. Остаток: 5 шт."
     res = product_smartphone + new_prod
     assert res == 4250
-    other_prod = LawnGrass("Samsung", "256GB Blue", 200, 10, "Russia", 10, "Green")
-    wrong_res = product_smartphone + other_prod
-    assert wrong_res == TypeError('Общую сумму можно посчитать только с одних и тех же товаров')
 
 
 @pytest.fixture()
@@ -74,9 +71,6 @@ def test_product_grass__init(product_grass):
     assert str(new_prod) == "LG, 450 руб. Остаток: 5 шт."
     res = product_grass + new_prod
     assert res == 4250
-    other_prod = Smartphone("Samsung", "256GB Blue", 200, 10, 1600, "Galaxy A16", 265, "Blue")
-    wrong_res = product_grass + other_prod
-    assert wrong_res == TypeError('Общую сумму можно посчитать только с одних и тех же товаров')
 
 
 def get_phone_list():
@@ -91,6 +85,20 @@ def get_phone_list():
     return result
 
 
+@pytest.fixture()
+def err_func():
+    return TypeError("Общую сумму можно посчитать только с одних и тех же товаров")
+
+def test_type_error(err_func, product_smartphone, product_grass):
+    with pytest.raises(TypeError):
+        other_grass = LawnGrass("Samsung", "256GB Blue", 200, 10, "Russia", 10, "Green")
+        wrong_res = product_smartphone + other_grass
+        assert wrong_res == err_func()
+        other_phone = Smartphone("Samsung", "256GB Blue", 200, 10, 1600, "Galaxy A16", 265, "Blue")
+        wrong_res = product_smartphone + other_phone
+        assert wrong_res == err_func()
+
+
 def phone_list():
     phone1 = Product("Samsung", "256GB Blue", 200, 10)
     phone2 = Product("LG", "256GB Black", 150, 8)
@@ -103,7 +111,6 @@ def category_phone():
     return Category(
         "Телефоны", "Smartphones", "Смартфоны и мобильные устройства", phone_list()
     )
-
 
 def test_category_phone__init(category_phone):
     assert category_phone.name == "Телефоны"
