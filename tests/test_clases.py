@@ -9,6 +9,7 @@ def product_phone():
 
 
 def test_product_phone__init(product_phone):
+    assert product_phone == "Product (Samsung, 256GB Blue, 200, 10)"
     assert product_phone.name == "Samsung"
     assert product_phone.description == "256GB Blue"
     assert product_phone.price == 200

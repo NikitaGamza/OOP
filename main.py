@@ -1,3 +1,4 @@
+from os import name
 from typing import Any, List, Optional
 from abc import ABC, abstractmethod
 
@@ -17,7 +18,7 @@ class WrongClass:
 class BaseProduct(ABC):
     """Базовый абстрактный класс продукции"""
     @abstractmethod
-    def __init__(self, name: str, description: str, price: float, quantity: int):
+    def __init__(self):
         pass
 
     @abstractmethod
@@ -37,7 +38,16 @@ class BaseProduct(ABC):
         pass
 
 
-class Product(BaseProduct):
+class MixinRepr:
+    def __init__(self):
+        super().__init__()
+        print(repr(self))
+
+    def __repr__(self):
+        return f"{self.__class__.__name__} ({self.name}, {self.description}, {self.price}, {self.quantity})"
+
+
+class Product(MixinRepr, BaseProduct):
     """Класс продукции"""
 
     name: str
@@ -50,6 +60,8 @@ class Product(BaseProduct):
         self.description = description
         self.__price = price
         self.quantity = quantity
+        super().__init__()
+        MixinRepr.__init__(self)
 
     def __str__(self) -> str:
         """Возврат форматированной строки характеристик товара"""
@@ -258,9 +270,10 @@ if __name__ == "__main__":
     # print(prod1 + new_prod)
     # prod1.price = 450
     #
-    # smart1 = Smartphone(
-    #     "Samsung", "256GB Blue", 200, 10, 1600, "Galaxy A16", 265, "Blue"
-    # )
+    smart1 = Smartphone(
+        "Samsung", "256GB Blue", 200, 10, 1600, "Galaxy A16", 265, "Blue"
+    )
+    print(smart1)
     # smart2 = smart1.new_product(
     #     {
     #         "name": "Samsung",
@@ -276,22 +289,22 @@ if __name__ == "__main__":
     # print(smart1 + smart2)
     # print(prod1.price)
     #
-    def phone_list():
-        phone1 = Product("Samsung", "256GB Blue", 200, 10)
-        phone2 = Product("LG", "256GB Black", 150, 8)
-        phone3 = Product("Xiaomi", "256GB Green", 250, 12)
-        return [phone1, phone2, phone3]
+    # def phone_list():
+    #     phone1 = Product("Samsung", "256GB Blue", 200, 10)
+    #     phone2 = Product("LG", "256GB Black", 150, 8)
+    #     phone3 = Product("Xiaomi", "256GB Green", 250, 12)
+    #     return [phone1, phone2, phone3]
 
-    wrong_prod = WrongClass(
-        "Samsung",
-        "256GB Blue",
-        200,
-        10, )
-    cat1 = Category(
-        "Телефоны", "Смартфоны и мобильные устройства", "some description", phone_list()
-    )
-    cat1.add_product(wrong_prod)
-    print(cat1.products)
+    # wrong_prod = WrongClass(
+    #     "Samsung",
+    #     "256GB Blue",
+    #     200,
+    #     10, )
+    # cat1 = Category(
+    #     "Телефоны", "Смартфоны и мобильные устройства", "some description", phone_list()
+    # )
+    # cat1.add_product(wrong_prod)
+    # print(cat1.products)
     # product1 = Product(
     #     "Samsung Galaxy S23 Ultra", "256GB, Серый цвет, 200MP камера", 180000.0, 5
     # )
