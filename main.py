@@ -1,5 +1,5 @@
 from typing import Any, List, Optional
-
+from abc import ABC, abstractmethod
 
 class WrongClass:
     name: str
@@ -14,7 +14,12 @@ class WrongClass:
         self.quantity = quantity
 
 
-class Product:
+class BaseProduct(ABC):
+    """Базовый абстрактный класс продукции"""
+
+
+
+class Product(BaseProduct):
     """Класс продукции"""
 
     name: str
@@ -33,6 +38,7 @@ class Product:
         return f"{self.name}, {self.price} руб. Остаток: {self.quantity} шт."
 
     def __add__(self, other) -> float:
+        """Суммирование цен товаров"""
         return self.__price * self.quantity + other.__price * other.quantity
 
     @classmethod
