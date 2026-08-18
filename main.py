@@ -16,7 +16,25 @@ class WrongClass:
 
 class BaseProduct(ABC):
     """Базовый абстрактный класс продукции"""
+    @abstractmethod
+    def __init__(self, name: str, description: str, price: float, quantity: int):
+        pass
 
+    @abstractmethod
+    def __str__(self) -> str:
+        pass
+
+    @abstractmethod
+    def __add__(self, other) -> float:
+        pass
+
+    @abstractmethod
+    def new_product(self, parameters: dict, product_list: Any | None = None):
+        pass
+
+    @abstractmethod
+    def price(self):
+        pass
 
 
 class Product(BaseProduct):
