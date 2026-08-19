@@ -1,6 +1,7 @@
-from src.MixinRepr import MixinRepr
-from src.BaseProduct import BaseProduct
 from typing import Any
+
+from src.BaseProduct import BaseProduct
+from src.MixinRepr import MixinRepr
 
 
 class Product(MixinRepr, BaseProduct):

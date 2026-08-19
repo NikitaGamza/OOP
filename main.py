@@ -1,3 +1,6 @@
+from src.Smartphone import Smartphone
+
+
 if __name__ == "__main__":
     # prod1 = Product("Samsung", "256GB Blue", 200, 10)
     # new_prod = prod1.new_product(
