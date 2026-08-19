@@ -25,7 +25,7 @@ class Smartphone(Product):
 
     def __add__(self, other):
         if not isinstance(other, Smartphone):
-            return TypeError(
+            raise TypeError(
                 "Общую сумму можно посчитать только с одних и тех же товаров"
             )
         return self.price * self.quantity + other.price * other.quantity
