@@ -156,6 +156,12 @@ def category_phone():
         "Телефоны", "Smartphones", "Смартфоны и мобильные устройства", phone_list()
     )
 
+@pytest.fixture(autouse=True)
+def reset_category_count():
+    """Сбрасывает счётчик категорий перед каждым тестом"""
+    Category.category_count = 0
+    Category.product_count = 0
+    yield
 
 def test_category_phone__init(category_phone):
     assert category_phone.name == "Телефоны"
