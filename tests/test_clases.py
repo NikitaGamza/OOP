@@ -5,6 +5,25 @@ from src.LawnGrass import LawnGrass
 from src.Product import Product
 from src.Smartphone import Smartphone
 from src.WrongClass import WrongClass
+from src.BaseProduct import BaseProduct
+
+
+@pytest.fixture
+def concrete_instance(monkeypatch):
+    # Clear the abstract methods so Python allows instantiation
+    monkeypatch.setattr(BaseProduct, "__abstractmethods__", set())
+    return BaseProduct()
+
+
+def test_abstract_pass_method(concrete_instance):
+    result_price = concrete_instance.price()
+    assert result_price is None
+    result_new_product = concrete_instance.new_product({}, [])
+    assert result_new_product is None
+    result_add = concrete_instance.__add__({})
+    assert result_add is None
+    result_add = concrete_instance.__str__()
+    assert result_add is None
 
 
 @pytest.fixture()
@@ -17,16 +36,19 @@ def test_product_phone__init(product_phone):
     assert product_phone.name == "Samsung"
     assert product_phone.description == "256GB Blue"
     assert product_phone.price == 200
+    product_phone.price = 250
+    assert product_phone.price == 250
     assert product_phone.quantity == 10
     new_prod = product_phone.new_product(
         {"name": "LG", "description": "256GB Blue", "price": 300, "quantity": 5}
     )
     assert new_prod.name == "LG"
+    new_prod.description = "256GB Blue"
     new_prod.price = 450
     assert new_prod.price == 450
     assert str(new_prod) == "LG, 450 руб. Остаток: 5 шт."
     res = product_phone + new_prod
-    assert res == 4250
+    assert res == 4750
 
 
 @pytest.fixture()
@@ -142,3 +164,9 @@ def test_category_phone__init(category_phone):
     assert category_phone.category_count == 1
     assert category_phone.product_count == 3
     assert str(category_phone) == "Телефоны, количество продуктов: 30 шт."
+    new_phone = Product("Sony", "512GB Blue", 200, 10)
+    category_phone.add_product(new_phone)
+    assert category_phone.product_count == 4
+    assert str(category_phone) == "Телефоны, количество продуктов: 40 шт."
+    expexted = f'Samsung, 200 руб. Остаток: 10 шт.\nLG, 150 руб. Остаток: 8 шт.\nXiaomi, 250 руб. Остаток: 12 шт.\nSony, 200 руб. Остаток: 10 шт.\n'
+    assert category_phone.products == expexted
