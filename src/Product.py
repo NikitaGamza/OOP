@@ -37,13 +37,12 @@ class Product(MixinRepr, BaseProduct):
                 parameters["quantity"] += existing_product.quantity
                 if existing_product.price > parameters["price"]:
                     parameters["price"] = existing_product.price
-                    return cls(
-                        parameters["name"],
-                        parameters["description"],
-                        parameters["price"],
-                        parameters["quantity"],
-                    )
-        return None
+        return cls(
+            parameters["name"],
+            parameters["description"],
+            parameters["price"],
+            parameters["quantity"],
+        )
 
     @property
     def price(self):
