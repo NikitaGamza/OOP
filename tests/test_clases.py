@@ -1,11 +1,11 @@
 import pytest
 
+from src.BaseProduct import BaseProduct
 from src.Category import Category
 from src.LawnGrass import LawnGrass
 from src.Product import Product
 from src.Smartphone import Smartphone
 from src.WrongClass import WrongClass
-from src.BaseProduct import BaseProduct
 
 
 @pytest.fixture
@@ -168,5 +168,6 @@ def test_category_phone__init(category_phone):
     category_phone.add_product(new_phone)
     assert category_phone.product_count == 4
     assert str(category_phone) == "Телефоны, количество продуктов: 40 шт."
-    expexted = f'Samsung, 200 руб. Остаток: 10 шт.\nLG, 150 руб. Остаток: 8 шт.\nXiaomi, 250 руб. Остаток: 12 шт.\nSony, 200 руб. Остаток: 10 шт.\n'
+    expexted = ("Samsung, 200 руб. Остаток: 10 шт.\nLG, 150 руб. Остаток: 8 шт.\n"
+                "Xiaomi, 250 руб. Остаток: 12 шт.\nSony, 200 руб. Остаток: 10 шт.\n")
     assert category_phone.products == expexted
