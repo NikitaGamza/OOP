@@ -182,14 +182,17 @@ def test_category_phone__init(category_phone):
     )
     assert category_phone.products == expexted
 
+
 @pytest.fixture()
 def err_value():
     return ValueError("Товар с нулевым количеством не может быть добавлен")
+
 
 def test_product_zero():
     with pytest.raises(ValueError):
         phone_zero = Product("Samsung", "512GB Blue", 200, 0)
         assert phone_zero == err_value()
+
 
 @pytest.fixture
 def category_with_products():
@@ -198,20 +201,24 @@ def category_with_products():
         category="Смартфоны",
         description="Смартфоны, как средство не только коммуникации",
         products=[
-            Product("Samsung Galaxy C23 Ultra", "256GB, Серый цвет, 200MP камера", 180000.0, 5),
+            Product(
+                "Samsung Galaxy C23 Ultra",
+                "256GB, Серый цвет, 200MP камера",
+                180000.0,
+                5,
+            ),
             Product("Iphone 15", "512GB, Gray space", 210000.0, 8),
             Product("Xiaomi Redmi Note 11", "1024GB, Синий", 31000.0, 14),
         ],
     )
 
+
 @pytest.fixture
 def category_without_product():
     return Category(
-        name="Машины",
-        category="Авто",
-        description="Авто, которых нет",
-        products = []
+        name="Машины", category="Авто", description="Авто, которых нет", products=[]
     )
+
 
 def test_middle_price(category_with_products, category_without_product):
     assert category_with_products.middle_price() == 140333.33333333334
