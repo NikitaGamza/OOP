@@ -45,7 +45,7 @@ class Category:
             | isinstance(product, Smartphone)
         ):
             try:
-                if product.quantity <= 0:
+                if len(self.products) <= 0:
                     raise ZeroProductError
             except ZeroProductError as e:
                 print(str(e))
@@ -54,6 +54,20 @@ class Category:
                 self.__products.append(product)
         else:
             raise TypeError("Добавляется только: Продукт, Газонная Трава, Смартфон")
+
+    def middle_price(self) -> float:
+        """Функция подсчёта среднего значения товаров в категории"""
+        try:
+            return sum([product.price for product in self.__products]) / len(self.__products)
+        except ZeroDivisionError:
+            return 0
+        # sum_products = 0
+        # try:
+        #     for product in self.__products:
+        #         sum_products += product.price
+        #     return sum_products / len(self.__products)
+        # except ZeroProductError:
+        #     return 0
 
     @property
     def products(self):
