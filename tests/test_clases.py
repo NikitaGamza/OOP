@@ -182,6 +182,14 @@ def test_category_phone__init(category_phone):
     )
     assert category_phone.products == expexted
 
+@pytest.fixture()
+def err_value():
+    return ValueError("Товар с нулевым количеством не может быть добавлен")
+
+def test_product_zero():
+    with pytest.raises(ValueError):
+        phone_zero = Product("Samsung", "512GB Blue", 200, 0)
+        assert phone_zero == err_value()
 
 @pytest.fixture
 def category_with_products():
