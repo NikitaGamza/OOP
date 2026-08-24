@@ -3,6 +3,7 @@ from typing import List, Optional
 from src.LawnGrass import LawnGrass
 from src.Product import Product
 from src.Smartphone import Smartphone
+from src.ZeroProductError import ZeroProductError
 
 
 class Category:
@@ -43,8 +44,14 @@ class Category:
             | isinstance(product, LawnGrass)
             | isinstance(product, Smartphone)
         ):
-            Category.product_count = Category.product_count + 1
-            self.__products.append(product)
+            try:
+                if product.quantity <= 0:
+                    raise ZeroProductError
+            except ZeroProductError as e:
+                print(str(e))
+            else:
+                Category.product_count = Category.product_count + 1
+                self.__products.append(product)
         else:
             raise TypeError("Добавляется только: Продукт, Газонная Трава, Смартфон")
 
