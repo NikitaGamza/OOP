@@ -7,6 +7,7 @@ from src.MixinRepr import MixinRepr
 class ProductException(Exception):
     pass
 
+
 class Product(MixinRepr, BaseProduct):
     """Класс продукции"""
 

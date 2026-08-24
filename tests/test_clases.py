@@ -156,12 +156,14 @@ def category_phone():
         "Телефоны", "Smartphones", "Смартфоны и мобильные устройства", phone_list()
     )
 
+
 @pytest.fixture(autouse=True)
 def reset_category_count():
     """Сбрасывает счётчик категорий перед каждым тестом"""
     Category.category_count = 0
     Category.product_count = 0
     yield
+
 
 def test_category_phone__init(category_phone):
     assert category_phone.name == "Телефоны"
@@ -174,6 +176,8 @@ def test_category_phone__init(category_phone):
     category_phone.add_product(new_phone)
     assert category_phone.product_count == 4
     assert str(category_phone) == "Телефоны, количество продуктов: 40 шт."
-    expexted = ("Samsung, 200 руб. Остаток: 10 шт.\nLG, 150 руб. Остаток: 8 шт.\n"
-                "Xiaomi, 250 руб. Остаток: 12 шт.\nSony, 200 руб. Остаток: 10 шт.\n")
+    expexted = (
+        "Samsung, 200 руб. Остаток: 10 шт.\nLG, 150 руб. Остаток: 8 шт.\n"
+        "Xiaomi, 250 руб. Остаток: 12 шт.\nSony, 200 руб. Остаток: 10 шт.\n"
+    )
     assert category_phone.products == expexted
